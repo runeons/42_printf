@@ -1,28 +1,68 @@
-NAME = libftprintf.a
+#****************************************************************************#
+#*** GENERAL ****************************************************************#
+#****************************************************************************#
 
-CFLAGS = -Wall -Wextra -Werror
-SRC = ft_printf.c ft_printf_utils.c ft_data.c\
-	  ft_parse_flags.c ft_libft.c ft_conv_s.c\
-	  ft_conv_c.c ft_conv_u.c ft_conv_d.c\
-	  ft_conv_x.c ft_conv_p.c ft_conv_pc.c\
-	  ft_put.c
-OBJ = $(SRC:.c=.o)
-INC = libftprintf.h
+NAME 		=	libftprintf.a
 
-all: $(NAME)
+CPL 		= 	gcc
+FLAGS 		= 	-Wall -Wextra -Werror
+OPTION		=	-c
+INCLUDES 	=	-I ./includes
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+#****************************************************************************#
+#*** SRCS *******************************************************************#
+#****************************************************************************#
 
-%.o : %.c $(INC)
-	gcc -c $(CFLAGS) -o $@ $<
+SRCS_DIR	= 	./srcs/
 
-clean:
-	rm -f $(OBJ)
+SRCS_FILES	=						\
+				ft_printf.c			\
+				ft_printf_utils.c	\
+				ft_data.c			\
+				ft_parse_flags.c	\
+				ft_libft.c			\
+				ft_conv_s.c 		\
+				ft_conv_c.c 		\
+				ft_conv_u.c 		\
+				ft_conv_d.c 		\
+				ft_conv_x.c 		\
+				ft_conv_p.c 		\
+				ft_conv_pc.c		\
+				ft_put.c			\
 
-fclean: clean
-	rm -f $(NAME)
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
-re: fclean all
+
+#****************************************************************************#
+#*** OBJS *******************************************************************#
+#****************************************************************************#
+
+OBJS_DIR 	=	./objs/
+
+OBJS_FILES	=	$(patsubst %.c, %.o, $(SRCS_FILES))
+
+OBJS		=	$(addprefix $(OBJS_DIR), $(OBJS_FILES))
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+	@ mkdir -p $(dir $@)
+	@ $(CPL) $(FLAGS) $(INCLUDES) $(OPTION) $< -o $@
+
+
+#****************************************************************************#
+#*** RULES ******************************************************************#
+#****************************************************************************#
+
+all		: $(NAME)
+
+$(NAME)	: $(SRCS) $(OBJS)
+	@ ar rcs $(NAME) $(OBJS)
+
+clean	:
+	@ rm -rf $(OBJS_DIR)
+
+fclean	: clean
+	@ rm -f $(NAME)
+
+re		: fclean all
 
 .PHONY: all clean fclean re

@@ -79,7 +79,7 @@ char			*ft_itoa_base_ui(unsigned int nb, char *base, int base_len);
 void			ft_display_x(t_data *current, int nt_gp, char *ba_h, int nb_d);
 int				ft_prepare_x(t_data *current, va_list arg_val, char *base);
 
-char			*ft_itoa_base_llu(uint64_t nb, char *base, int base_len);
+char			*ft_itoa_base_llu(u_int64_t nb, char *base, int base_len);
 void			ft_display_p(t_data *current, char *ba_h, int nt_gp, int nb_d);
 int				ft_prepare_p(t_data *current, va_list arg_val, char *base);
 

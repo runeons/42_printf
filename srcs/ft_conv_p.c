@@ -12,17 +12,17 @@
 
 #include "libftprintf.h"
 
-char	*ft_itoa_base_llu(uint64_t nb, char *base, int base_len)
+char	*ft_itoa_base_llu(u_int64_t nb, char *base, int base_len)
 {
 	char		*res;
 	int			i;
-	uint64_t	div;
-	uint64_t	nb_tmp;
+	u_int64_t	div;
+	u_int64_t	nb_tmp;
 
 	i = 1;
 	div = 1;
 	nb_tmp = nb;
-	while (nb >= (uint64_t)base_len)
+	while (nb >= (u_int64_t)base_len)
 	{
 		nb /= base_len;
 		div *= base_len;
@@ -55,11 +55,11 @@ void	ft_display_p(t_data *current, char *ba_h, int nt_gp, int nb_d)
 int		ft_prepare_p(t_data *current, va_list arg_val, char *base)
 {
 	int			not_gap;
-	uint64_t	buf_arg;
+	u_int64_t	buf_arg;
 	char		*buf_arg_hex;
 	int			nb_digits;
 
-	buf_arg = va_arg(arg_val, uint64_t);
+	buf_arg = va_arg(arg_val, u_int64_t);
 	buf_arg_hex = ft_itoa_base_llu(buf_arg, base, 16);
 	nb_digits = ft_strlen(buf_arg_hex) + 2;
 	not_gap = nb_digits;
